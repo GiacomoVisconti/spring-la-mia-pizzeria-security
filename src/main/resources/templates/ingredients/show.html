@@ -18,10 +18,10 @@
             <div class="my-3">
 
                 <!-- MODALE CANCELLAZIONE -->
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + ${ingredient.id}">
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + ${ingredient.id}" sec:authorize="hasAuthority('ADMIN')">
                     Delete
                 </button>
-                <div class="modal fade" aria-labelledby="delete-modal" aria-hidden="true" th:id="'delete-modal-' + ${ingredient.id}" tabindex="-1">
+                <div class="modal fade" aria-labelledby="delete-modal" aria-hidden="true" th:id="'delete-modal-' + ${ingredient.id}" tabindex="-1" sec:authorize="hasAuthority('ADMIN')">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header">
@@ -49,6 +49,7 @@
 
                 <!-- BOTTONE MODIFICA -->
                 <a
+                sec:authorize="hasAuthority('ADMIN')"
                     name=""
                     id=""
                     class="btn btn-warning"
@@ -75,7 +76,7 @@
                                         <tr>
                                             <th scope="col">id</th>
                                             <th scope="col">Pizza</th>
-                                            <th scope="col"></th>
+                                            <th scope="col" sec:authorize="hasAuthority('ADMIN')"></th>
                                             
                                         </tr>
                                     </thead>
@@ -84,7 +85,7 @@
                                             <td scope="row">[[${pizza.id}]]</td>
                                             <td scope="row">[[${pizza.name}]]</td>
                                             
-                                            <td scope="row">
+                                            <td scope="row" sec:authorize="hasAuthority('ADMIN')">
                                                 <a
                                                     name=""
                                                     id=""

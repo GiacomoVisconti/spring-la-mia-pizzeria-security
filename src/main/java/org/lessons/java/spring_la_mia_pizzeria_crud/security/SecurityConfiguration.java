@@ -34,6 +34,7 @@ public class SecurityConfiguration {
     }
 
     //*QUESTO METODO E' IL RESPONSABILE DELL'AUTENTICAZIONE
+    @Bean
     @SuppressWarnings("deprecation")
     DaoAuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();

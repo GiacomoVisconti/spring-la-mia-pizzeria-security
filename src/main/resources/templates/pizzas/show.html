@@ -30,13 +30,13 @@
                 </div>
             </div>
 
-            <div class="my-3">
+            <div class="my-3" >
 
                 <!-- MODALE CANCELLAZIONE -->
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + ${pizza.id}">
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + ${pizza.id}" sec:authorize="hasAuthority('ADMIN')">
                     Delete
                 </button>
-                <div class="modal fade" aria-labelledby="delete-modal" aria-hidden="true" th:id="'delete-modal-' + ${pizza.id}" tabindex="-1">
+                <div class="modal fade" aria-labelledby="delete-modal" aria-hidden="true" th:id="'delete-modal-' + ${pizza.id}" tabindex="-1" sec:authorize="hasAuthority('ADMIN')">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header">
@@ -64,6 +64,7 @@
 
                 <!-- BOTTONE MODIFICA -->
                 <a
+                sec:authorize="hasAuthority('ADMIN')"
                     name=""
                     id=""
                     class="btn btn-warning"
@@ -72,6 +73,7 @@
                     >Edit</a
                 >
                 <a
+                sec:authorize="hasAuthority('ADMIN')"
                     name=""
                     id=""
                     class="btn btn-success"
@@ -100,8 +102,8 @@
                                             <th scope="col">Title</th>
                                             <th scope="col">Start Date</th>
                                             <th scope="col">End Date</th>
-                                            <th scope="col"></th>
-                                            <th scope="col"></th>
+                                            <th scope="col" sec:authorize="hasAuthority('ADMIN')"></th>
+                                            <th scope="col" sec:authorize="hasAuthority('ADMIN')"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -110,8 +112,9 @@
                                             <td scope="row">[[${specialOffer.title}]]</td>
                                             <td scope="row">[[${specialOffer.startOfferDate}]]</td>
                                             <td scope="row">[[${specialOffer.endOfferDate}]]</td>
-                                            <td scope="row">
+                                            <td scope="row" sec:authorize="hasAuthority('ADMIN')">
                                                 <a
+                                                
                                                     name=""
                                                     id=""
                                                     class="btn btn-warning btn-sm"
@@ -120,7 +123,7 @@
                                                     >Edit</a
                                                 >
                                             </td>
-                                            <td scope="row">
+                                            <td scope="row" sec:authorize="hasAuthority('ADMIN')">
                                                 <form action="" th:action="@{|/specialoffer/delete/${specialOffer.id}|}" method="post">
                                                     <button
                                                         type="submit"

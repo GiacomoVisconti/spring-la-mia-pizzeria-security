@@ -20,6 +20,11 @@
                         
                     </div>
                 </div>
+                <div class="user-info">
+                    Logged user: <span class="fw-bold" sec:authentication="name" ></span>
+                    Roles: <span class="fw-bold" sec:authentication="principal.authorities"></span>
+                    <a class="btn btn-sm btn-secondary" href="/logout">Sign Out</a>
+                </div>
             </div>
         </nav>
 </body>

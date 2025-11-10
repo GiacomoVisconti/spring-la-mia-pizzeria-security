@@ -1,10 +1,13 @@
 package org.lessons.java.spring_la_mia_pizzeria_crud.controllers;
 
+import java.util.Optional;
+
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.Pizza;
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.SpecialOffer;
 import org.lessons.java.spring_la_mia_pizzeria_crud.service.IngredientService;
 import org.lessons.java.spring_la_mia_pizzeria_crud.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,17 +33,21 @@ public class PizzaController {
 
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, Authentication authentication) {
 
         model.addAttribute("list", pizzaService.findAll());
+        model.addAttribute("username", authentication.getName());
         
         return "pizzas/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model){
+        Optional<Pizza> pizzOptional = pizzaService.FindById(id);
 
-        model.addAttribute("pizza", pizzaService.FindById(id));
+        Pizza pizza = pizzOptional.get();
+
+        model.addAttribute("pizza", pizza);
 
         return "pizzas/show";
     }
@@ -102,7 +109,7 @@ public class PizzaController {
     @GetMapping("/{id}/specialoffer")
     public String specialoffer(@PathVariable Integer id, Model model) {
         SpecialOffer specialOffer = new SpecialOffer();
-        specialOffer.setPizza(pizzaService.FindById(id));
+        // specialOffer.setPizza(pizzaService.FindById(id));
 
         model.addAttribute("specialOffer", specialOffer);
         model.addAttribute("edit", false);

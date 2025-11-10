@@ -7,7 +7,9 @@ import org.lessons.java.spring_la_mia_pizzeria_crud.model.Pizza;
 import org.lessons.java.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class PizzaService {
@@ -22,7 +24,14 @@ public class PizzaService {
 
 
     public Optional<Pizza> FindById(Integer id){
-        return pizzaRepository.findById(id);
+        Optional<Pizza> pizzaOptional = pizzaRepository.findById(id);
+
+        if (pizzaOptional.isEmpty()) {
+    
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza non trovata");
+        }
+
+        return pizzaOptional;
     }
 
     public List<Pizza> findByName(String name){
